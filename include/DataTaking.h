@@ -12,11 +12,11 @@
 // 
 // 
 // 
-class SettingVShape {
+class DataTakinkg {
 public:
-  SettingVShape(TTree *fTreeDigits);
+  DataTakinkg(TTree *fTreeDigits);
 
-  virtual ~SettingVShape();
+  virtual ~DataTakinkg();
 
 private:
   Double_t conversion;
@@ -31,5 +31,4 @@ private:
 
   virtual void merging();
 };
-#pragma link C++ class BmnSiliconDigit+;
 #endif

@@ -26,11 +26,10 @@ LDFLAGS =  ${OTHER_FLAGS} $(shell root-config --glibs)
 
 #executable name
 EXEC = miniSPD
-
 SOURCE_DIR = src
 
 #list here all the source files
-SRC = main.cpp  $(SOURCE_DIR)/DataTaking.cpp
+SRC = main.cpp  $(SOURCE_DIR)/DataTaking.cpp  $(SOURCE_DIR)/BmnSiliconDigit.cxx
 
 #A directory for build artefacts
 BUILD_DIR = Build
@@ -59,7 +58,11 @@ $(BUILD_DIR):
 	@mkdir -p $@
 
 #compile every source files
-$(BUILD_DIR)/%.o : %.cpp
+$(BUILD_DIR)/%.o : %.cxx
+	$(CXX) $(CXXFLAGS) -c $< -o $@
+	@echo "Aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+
+$(BUILD_DIR)/%.o : %.cpp 
 
 	@echo --------- build [$<] ----------
 
@@ -68,7 +71,6 @@ $(BUILD_DIR)/%.o : %.cpp
 	$(CXX) $(CXXFLAGS) $(INCPATH) -c $<  -o $@
 	@echo OK [$<] - [$@]
 	@echo
-
 
 
 #make clean

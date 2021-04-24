@@ -1,6 +1,7 @@
 #include <iostream>
 #include "include/DataTaking.h"
 #include "TFile.h"
+#include "TNamed.h"
 
 int main() {
   TString dir("/Users/andreizelenov/Documents/SPD/MINI_SPD/");
@@ -13,7 +14,7 @@ int main() {
   TTree *fTreeDigits;
   AnaFile->GetObject("cbmsim", fTreeDigits);
 
-  auto *setShape = new SettingVShape(fTreeDigits);
+  auto *dataTakinkg = new DataTakinkg(fTreeDigits);
 
   std::cout << "I did it" << std::endl;
 //  AnaFile->TFile::Close();

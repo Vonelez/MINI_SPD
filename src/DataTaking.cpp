@@ -1,7 +1,7 @@
 #include "../include/DataTaking.h"
 #include "../include/BmnSiliconDigit.h"
 
-SettingVShape::SettingVShape(TTree *fTreeDigits) {
+DataTakinkg::DataTakinkg(TTree *fTreeDigits) {
   this->fTreeDigits = fTreeDigits;
   fBranchSiDigits = fTreeDigits->GetBranch("SILICON");
   fBranchSiDigits->SetAutoDelete(kTRUE);
@@ -11,10 +11,10 @@ SettingVShape::SettingVShape(TTree *fTreeDigits) {
   merging();
 }
 
-SettingVShape::~SettingVShape() = default;
+DataTakinkg::~DataTakinkg() = default;
 
 
-void SettingVShape::merging() {
+void DataTakinkg::merging() {
 
   nEntries = (Int_t) fTreeDigits->GetEntries();
   cout << "requesting " << nEntries << " events..." << endl;
