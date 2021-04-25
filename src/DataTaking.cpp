@@ -3,6 +3,7 @@
 
 DataTakinkg::DataTakinkg(TTree *fTreeDigits) {
   this->fTreeDigits = fTreeDigits;
+  fSiliconDigits = new TClonesArray("BmnSiliconDigit");
   fBranchSiDigits = fTreeDigits->GetBranch("SILICON");
   fBranchSiDigits->SetAutoDelete(kTRUE);
   fTreeDigits->SetBranchAddress("SILICON", &fSiliconDigits);
@@ -19,28 +20,29 @@ void DataTakinkg::merging() {
   nEntries = (Int_t) fTreeDigits->GetEntries();
   cout << "requesting " << nEntries << " events..." << endl;
 
-  cout << "Begin analysis..." << endl;
-  for (Int_t i = 0; i < nEntries; i++) {
-/// progress bar
-    int barWidth = 70;
-    cout << "\033[0;32m[\033[0m";
-    auto pos = (int) (barWidth * ((float) i / (float) nEntries));
-    for (int bar = 0; bar < barWidth; ++bar) {
-      if (bar < pos) cout << "\033[0;32m=\033[0m";
-      else if (bar == pos) cout << "\033[0;32m>\033[0m";
-      else cout << " ";
-    }
-    cout << "\033[0;32m]\033[0m " << "\033[0;31m" << int(((float) i / (float) nEntries) * 100.0 + 1) << "%\r \033[0m";
-    cout.flush();
-/// progress bar
-    TString histName;
-    TString histDiscription;
-    for (int iStation = 0; iStation < 3; iStation++) {
+  TString histName;
+  TString histDiscription;
+  for (int iStation = 0; iStation < 3; iStation++)
+  {
       histName = Form("h1_amplitude_station%d", iStation);
       histDiscription = Form("Silicon signal amplitude (station %d);AU;", iStation);
       h1Signal[iStation] = new TH1D(histName, histDiscription, 80, 0, 800);
-    }
+  }
 
+  cout << "Begin analysis..." << endl;
+  for (Int_t i = 0; i < nEntries; i++) {
+// /// progress bar
+//     int barWidth = 70;
+//     cout << "\033[0;32m[\033[0m";
+//     auto pos = (int) (barWidth * ((float) i / (float) nEntries));
+//     for (int bar = 0; bar < barWidth; ++bar) {
+//       if (bar < pos) cout << "\033[0;32m=\033[0m";
+//       else if (bar == pos) cout << "\033[0;32m>\033[0m";
+//       else cout << " ";
+//     }
+//     cout << "\033[0;32m]\033[0m " << "\033[0;31m" << int(((float) i / (float) nEntries) * 100.0 + 1) << "%\r \033[0m";
+//     cout.flush();
+// /// progress bar
     fBranchSiDigits->GetEntry(i);
     Int_t nDigits = fSiliconDigits->GetEntriesFast();
         // printf("nDigits: %d\n", nDigits);
