@@ -31,7 +31,6 @@ void DataTakinkg::merging() {
 
   cout << "Begin analysis..." << endl;
   for (Int_t i = 0; i < nEntries; i++) {
-<<<<<<< HEAD
 /// progress bar
     int barWidth = 70;
     cout << "\033[0;32m[\033[0m";
@@ -44,20 +43,6 @@ void DataTakinkg::merging() {
     cout << "\033[0;32m]\033[0m " << "\033[0;31m" << int(((float) i / (float) nEntries) * 100.0 + 1) << "%\r \033[0m";
     cout.flush();
 /// progress bar
-=======
-// /// progress bar
-//     int barWidth = 70;
-//     cout << "\033[0;32m[\033[0m";
-//     auto pos = (int) (barWidth * ((float) i / (float) nEntries));
-//     for (int bar = 0; bar < barWidth; ++bar) {
-//       if (bar < pos) cout << "\033[0;32m=\033[0m";
-//       else if (bar == pos) cout << "\033[0;32m>\033[0m";
-//       else cout << " ";
-//     }
-//     cout << "\033[0;32m]\033[0m " << "\033[0;31m" << int(((float) i / (float) nEntries) * 100.0 + 1) << "%\r \033[0m";
-//     cout.flush();
-// /// progress bar
->>>>>>> 721f003f27300bba86de141cb8101cb7c30cf203
     fBranchSiDigits->GetEntry(i);
     Int_t nDigits = fSiliconDigits->GetEntriesFast();
         // printf("nDigits: %d\n", nDigits);
