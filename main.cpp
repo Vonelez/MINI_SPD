@@ -10,14 +10,14 @@ int main() {
   TString RootName(dir + fileName);
   
   TFile *AnaFile;
-  AnaFile = TFile::Open(RootName, "read");
+  AnaFile = new TFile(RootName, "read");
   TTree *fTreeDigits;
-  AnaFile->GetObject("cbmsim", fTreeDigits);
+  fTreeDigits = (TTree *)AnaFile->Get("cbmsim");
 
-  auto *dataTakinkg = new DataTakinkg(fTreeDigits);
+  auto dataTakinkg = new DataTakinkg(fTreeDigits);
 
   std::cout << "I did it" << std::endl;
-//  AnaFile->TFile::Close();
+  AnaFile->TFile::Close();
 
   return 0;
 }
