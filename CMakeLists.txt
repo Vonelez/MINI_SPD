@@ -3,6 +3,8 @@ CMAKE_MINIMUM_REQUIRED(VERSION 2.6.0)
 
 project(MINI_SPD)
 
+set (CMAKE_CXX_STANDARD 17)
+
 find_package(ROOT REQUIRED)
 
 set(INCLUDE_DIRECTORIES
@@ -19,6 +21,6 @@ link_directories( ${LINK_DIRECTORIES})
 
 add_executable(minispd main.cpp)
 
-target_sources(minispd PUBLIC src/DataTaking.cpp)
+target_sources(minispd PUBLIC src/DataTaking.cpp src/BmnSiliconDigit.cxx)
 
 target_link_libraries(minispd Core RIO Tree Hist)

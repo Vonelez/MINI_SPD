@@ -22,44 +22,52 @@ void DataTakinkg::merging() {
 
   TString histName;
   TString histDiscription;
-  for (int iStation = 0; iStation < 3; iStation++)
-  {
-      histName = Form("h1_amplitude_station%d", iStation);
-      histDiscription = Form("Silicon signal amplitude (station %d);AU;", iStation);
-      h1Signal[iStation] = new TH1D(histName, histDiscription, 80, 0, 800);
+  for (int iStation = 0; iStation < 3; iStation++) {
+    histName = Form("h1_amplitude_station%d", iStation);
+    histDiscription = Form("Silicon signal amplitude (station %d);AU;", iStation);
+    h1Signal[iStation] = new TH1D(histName, histDiscription, 80, 0, 800);
   }
 
   cout << "Begin analysis..." << endl;
   for (Int_t i = 0; i < nEntries; i++) {
-/// progress bar
-    int barWidth = 70;
-    cout << "\033[0;32m[\033[0m";
-    auto pos = (int) (barWidth * ((float) i / (float) nEntries));
-    for (int bar = 0; bar < barWidth; ++bar) {
-      if (bar < pos) cout << "\033[0;32m=\033[0m";
-      else if (bar == pos) cout << "\033[0;32m>\033[0m";
-      else cout << " ";
-    }
-    cout << "\033[0;32m]\033[0m " << "\033[0;31m" << int(((float) i / (float) nEntries) * 100.0 + 1) << "%\r \033[0m";
-    cout.flush();
-/// progress bar
+    // progress bar
+    // int barWidth = 70;
+    // cout << "\033[0;32m[\033[0m";
+    // auto pos = (int) (barWidth * ((float) i / (float) nEntries));
+    // for (int bar = 0; bar < barWidth; ++bar) {
+    //   if (bar < pos) cout << "\033[0;32m=\033[0m";
+    //   else if (bar == pos) cout << "\033[0;32m>\033[0m";
+    //   else cout << " ";
+    // }
+    // cout << "\033[0;32m]\033[0m " << "\033[0;31m" << int(((float) i / (float) nEntries) * 100.0 + 1) << "%\r \033[0m";
+    // cout.flush();
+    // progress bar
     fBranchSiDigits->GetEntry(i);
-    Int_t nDigits = fSiliconDigits->GetEntriesFast();
-        // printf("nDigits: %d\n", nDigits);
-        for (size_t iDigit = 0; iDigit < nDigits; iDigit++) {
-          auto siDigit = (BmnSiliconDigit *)fSiliconDigits->At(iDigit);
+    unsigned int nDigits = fSiliconDigits->GetEntries();
+    printf("nDigits: %d\n", nDigits);
+    for (unsigned int iDigit = 0; iDigit < nDigits; iDigit++) {
+      // cout << "point 0" << endl;
+      BmnSiliconDigit * siDigit = (BmnSiliconDigit *)fSiliconDigits->At(iDigit);
+      // cout << siDigit << endl;
+      siDigit->PrintHit(iDigit);
+      // cout << "point 1" << endl;
+      cout << siDigit->IsGoodDigit() << "Good?" << endl;
+      // if (!siDigit->IsGoodDigit()) continue;
 
-          if (!siDigit->IsGoodDigit()) continue;
-
-          Int_t station = siDigit->GetStation();
-          Int_t module = siDigit->GetModule();
-          Int_t layer = siDigit->GetStripLayer();
-          Int_t strip = siDigit->GetStripNumber();
-          Double_t signal = siDigit->GetStripSignal();
-
-          h1Signal[station]->Fill(abs(signal));
-        }
-
+      int station = siDigit->GetStation();
+      // printf("station: %d\n", station);
+      int module = siDigit->GetModule();
+      // printf("module: %d\n", module);
+      int layer = siDigit->GetStripLayer();
+      // printf("layer: %d\n", layer);
+      int strip = siDigit->GetStripNumber();
+      // printf("strip: %d\n", strip);
+      double signal = siDigit->GetStripSignal();
+      // printf("signal: %f\n", signal);
+      // cout << "point 2" << endl;
+      // h1Signal[station]->Fill(abs(signal));
+      // cout << "point 3" << endl;
+    }
     count_processed++;
   }
   cout << endl;
