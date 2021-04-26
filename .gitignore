@@ -3,4 +3,5 @@
 /Build
 /Katerina
 /img
-/stand_run0001_digits.root
+data/stand_run0001_digits.root
+build/.DS_Store
