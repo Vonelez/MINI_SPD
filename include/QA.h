@@ -8,8 +8,6 @@
 #include "TDirectory.h"
 #include <iostream>
 
-using namespace std;
-
 class QA {
 public:
   QA(Int_t runId);

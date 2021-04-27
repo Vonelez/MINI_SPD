@@ -2,6 +2,8 @@
 #include "../include/QA.h"
 #include "../include/BmnSiliconDigit.h"
 
+using namespace std;
+
 DataTakinkg::DataTakinkg(TTree *fTreeDigits, Int_t runId) {
   this->fTreeDigits = fTreeDigits;
   this->runId = runId;
@@ -44,8 +46,8 @@ void DataTakinkg::merging() {
     for (unsigned int iDigit = 0; iDigit < nDigits; iDigit++) {
       // cout << "point 0" << endl;
       BmnSiliconDigit * siDigit = (BmnSiliconDigit *)fSiliconDigits->At(iDigit);
-      // cout << siDigit << endl;
-      // siDigit->PrintHit(iDigit);
+      printf("Event Number: %d\n", i);
+      siDigit->PrintHit(iDigit);
       // cout << "point 1" << endl;
       if (!siDigit->IsGoodDigit()) cout << siDigit->IsGoodDigit() << " not Good " << endl;
       // if (!siDigit->IsGoodDigit()) continue;
@@ -67,6 +69,8 @@ void DataTakinkg::merging() {
         output->Station0[module][layer]->Fill(signal);
       } else if (station == 1) {
         output->Station1[module][layer]->Fill(signal);
+        // printf("Event Number: %d\n", i);
+        // siDigit->PrintHit(iDigit);
       } else {
         output->Station2[module][layer]->Fill(signal);
       }

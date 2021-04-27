@@ -1,5 +1,7 @@
 #include "../include/QA.h"
 
+using namespace std;
+
 QA::QA(Int_t runId) {
   this->runId = runId;
   init();
@@ -11,14 +13,14 @@ QA::~QA() = default;
 void QA::init() {
   for (int i = 0; i < 2; i++) {
     for (int j = 0; j < 2; j++) {
-      Station0[i][j] = new TH1D(Form("Station0_module%d_layer%d", i, j), "Signal hist", 10000, 0., 0.);
-      Station2[i][j] = new TH1D(Form("Station2_module%d_layer%d", i, j), "Signal hist", 10000, 0., 0.);
+      Station0[i][j] = new TH1D(Form("Station0_module%d_layer%d", i, j), "Signal hist", 5000, 0., 0.);
+      Station2[i][j] = new TH1D(Form("Station2_module%d_layer%d", i, j), "Signal hist", 5000, 0., 0.);
     }
   }
 
   for (int i = 0; i < 4; i++) {
     for (int j = 0; j < 2; j++) {
-      Station1[i][j] = new TH1D(Form("Station1_module%d_layer%d", i, j), "Signal hist", 10000, 0., 0.);
+      Station1[i][j] = new TH1D(Form("Station1_module%d_layer%d", i, j), "Signal hist", 5000, 0., 0.);
     }
   }
 }

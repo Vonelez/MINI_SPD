@@ -3,10 +3,7 @@
 
 #include <iostream>
 #include <vector>
-
 #include "TNamed.h"
-
-using namespace std;
 
 /*
     int fStation - номер станции кремниев. 0 - верхняя, 1 - средняя, 2 - нижняя;

@@ -1,7 +1,7 @@
 #include <stdio.h>
-
 #include "../include/BmnSiliconDigit.h"
 
+using namespace std;
 
 BmnSiliconDigit::BmnSiliconDigit() {
     fStation = -1;
@@ -35,6 +35,6 @@ BmnSiliconDigit::~BmnSiliconDigit() {
 }
 
 void BmnSiliconDigit::PrintHit(unsigned int digiN){
-	printf("%4d ; s: %2d m: %2d l: %2d ss: %4d  amp: %5.2f good: %1d\n", digiN, fStation, fModule, fLayer, fStrip, fSignal, int(fIsGoodDigit));
+	printf("%4d --- station: %2d | module: %2d | layer: %2d | strip: %4d | signal: %5.2f | good: %1d\n", digiN, fStation, fModule, fLayer, fStrip, fSignal, int(fIsGoodDigit));
 }
 

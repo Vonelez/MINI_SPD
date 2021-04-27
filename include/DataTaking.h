@@ -8,10 +8,10 @@
 #include "TClonesArray.h"
 #include "TCanvas.h"
 #include "TH1.h"
+#include <iostream>
+#include <fstream>
 
-// 
-// 
-// 
+ 
 class DataTakinkg {
 public:
   DataTakinkg(TTree *fTreeDigits, Int_t runId);
