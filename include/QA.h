@@ -3,25 +3,26 @@
 
 #include "TGraphErrors.h"
 #include "TH2D.h"
-#include "SettingVShape.h"
-#include "FittingShape.h"
-#include "Derivative.h"
+#include "TH1D.h"
+#include "TFile.h"
+#include "TDirectory.h"
+#include <iostream>
+
+using namespace std;
 
 class QA {
 public:
-  QA(SettingVShape *vshape, FittingShape *fittingShape, Derivative *derivative, Long_t runNum);
+  QA(Int_t runId);
+  void drawingPics();
 
   virtual ~QA();
+  TH1D* Station0[2][2];
+  TH1D* Station1[4][2];
+  TH1D* Station2[2][2];
 
 private:
-  TH2D *vShape;
-  TGraphErrors *meanValueGraph, *sigmaGraph, *ndfGraph, *chi2_ndfGraph, *chi2Graph;
-  TGraphErrors *derivativeGraph, *derivMassi, *coordResolGraph, *coordResolCut;
-  Long_t runNum;
-
   void init();
-
-  void drawingPics();
+  Int_t runId;
 };
 
 

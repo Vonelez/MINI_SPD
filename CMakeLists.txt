@@ -25,7 +25,7 @@ link_directories( ${LINK_DIRECTORIES})
 
 add_executable(minispd main.cpp)
 
-target_sources(minispd PUBLIC src/DataTaking.cpp src/BmnSiliconDigit.cxx)
+target_sources(minispd PUBLIC src/DataTaking.cpp src/BmnSiliconDigit.cxx src/QA.cpp)
 
 ROOT_GENERATE_DICTIONARY(G__BmnSiliconDigit BmnSiliconDigit.h MODULE minispd)
 

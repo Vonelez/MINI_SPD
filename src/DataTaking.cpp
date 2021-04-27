@@ -1,8 +1,10 @@
 #include "../include/DataTaking.h"
+#include "../include/QA.h"
 #include "../include/BmnSiliconDigit.h"
 
-DataTakinkg::DataTakinkg(TTree *fTreeDigits) {
+DataTakinkg::DataTakinkg(TTree *fTreeDigits, Int_t runId) {
   this->fTreeDigits = fTreeDigits;
+  this->runId = runId;
   fSiliconDigits = new TClonesArray("BmnSiliconDigit");
   fBranchSiDigits = fTreeDigits->GetBranch("SILICON");
   fBranchSiDigits->SetAutoDelete(kTRUE);
@@ -20,13 +22,7 @@ void DataTakinkg::merging() {
   nEntries = (Int_t) fTreeDigits->GetEntries();
   cout << "requesting " << nEntries << " events..." << endl;
 
-  TString histName;
-  TString histDiscription;
-  for (int iStation = 0; iStation < 3; iStation++) {
-    histName = Form("h1_amplitude_station%d", iStation);
-    histDiscription = Form("Silicon signal amplitude (station %d);AU;", iStation);
-    h1Signal[iStation] = new TH1D(histName, histDiscription, 80, 0, 800);
-  }
+  auto *output = new QA(runId);
 
   cout << "Begin analysis..." << endl;
   for (Int_t i = 0; i < nEntries; i++) {
@@ -44,14 +40,14 @@ void DataTakinkg::merging() {
     // progress bar
     fBranchSiDigits->GetEntry(i);
     unsigned int nDigits = fSiliconDigits->GetEntries();
-    printf("nDigits: %d\n", nDigits);
+    // printf("nDigits: %d\n", nDigits);
     for (unsigned int iDigit = 0; iDigit < nDigits; iDigit++) {
       // cout << "point 0" << endl;
       BmnSiliconDigit * siDigit = (BmnSiliconDigit *)fSiliconDigits->At(iDigit);
       // cout << siDigit << endl;
-      siDigit->PrintHit(iDigit);
+      // siDigit->PrintHit(iDigit);
       // cout << "point 1" << endl;
-      cout << siDigit->IsGoodDigit() << "Good?" << endl;
+      if (!siDigit->IsGoodDigit()) cout << siDigit->IsGoodDigit() << " not Good " << endl;
       // if (!siDigit->IsGoodDigit()) continue;
 
       int station = siDigit->GetStation();
@@ -67,8 +63,16 @@ void DataTakinkg::merging() {
       // cout << "point 2" << endl;
       // h1Signal[station]->Fill(abs(signal));
       // cout << "point 3" << endl;
+      if (station == 0) {
+        output->Station0[module][layer]->Fill(signal);
+      } else if (station == 1) {
+        output->Station1[module][layer]->Fill(signal);
+      } else {
+        output->Station2[module][layer]->Fill(signal);
+      }
     }
     count_processed++;
   }
+  output->drawingPics();
   cout << endl;
 }

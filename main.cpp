@@ -14,7 +14,7 @@ int main() {
   TTree *fTreeDigits;
   fTreeDigits = (TTree *)AnaFile->Get("cbmsim");
 
-  auto dataTakinkg = new DataTakinkg(fTreeDigits);
+  auto dataTakinkg = new DataTakinkg(fTreeDigits, runId);
 
   std::cout << "I did it" << std::endl;
   AnaFile->TFile::Close();

@@ -14,11 +14,12 @@
 // 
 class DataTakinkg {
 public:
-  DataTakinkg(TTree *fTreeDigits);
+  DataTakinkg(TTree *fTreeDigits, Int_t runId);
 
   virtual ~DataTakinkg();
 
 private:
+  Int_t runId;
   Double_t conversion;
   Int_t nEntries;
   Int_t count_processed;
