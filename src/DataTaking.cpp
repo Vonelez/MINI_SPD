@@ -1,6 +1,6 @@
-#include "../include/DataTaking.h"
-#include "../include/QA.h"
-#include "../include/BmnSiliconDigit.h"
+#include "DataTaking.h"
+#include "QA.h"
+#include "BmnSiliconDigit.h"
 
 using namespace std;
 
@@ -43,11 +43,12 @@ void DataTakinkg::merging() {
     fBranchSiDigits->GetEntry(i);
     unsigned int nDigits = fSiliconDigits->GetEntries();
     // printf("nDigits: %d\n", nDigits);
+    printf("Event Number: %d\n", i);
     for (unsigned int iDigit = 0; iDigit < nDigits; iDigit++) {
       // cout << "point 0" << endl;
       BmnSiliconDigit * siDigit = (BmnSiliconDigit *)fSiliconDigits->At(iDigit);
-      printf("Event Number: %d\n", i);
-      siDigit->PrintHit(iDigit);
+      
+      // siDigit->PrintHit(iDigit);
       // cout << "point 1" << endl;
       if (!siDigit->IsGoodDigit()) cout << siDigit->IsGoodDigit() << " not Good " << endl;
       // if (!siDigit->IsGoodDigit()) continue;

@@ -6,6 +6,7 @@
 #include "TH1D.h"
 #include "TFile.h"
 #include "TDirectory.h"
+#include "TCanvas.h"
 #include <iostream>
 
 class QA {
