@@ -1,5 +1,5 @@
-#ifndef REALDATATESTS_QA_H
-#define REALDATATESTS_QA_H
+#ifndef QA_H
+#define QA_H
 
 #include "TGraphErrors.h"
 #include "TH2D.h"
@@ -19,10 +19,12 @@ public:
   TH1D* Station1[4][2];
   TH1D* Station2[2][2];
 
+  TH2D* Correlations[3][2];
+
 private:
   void init();
   Int_t runId;
 };
 
 
-#endif //REALDATATESTS_QA_H
+#endif //QA_H

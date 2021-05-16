@@ -29,4 +29,4 @@ target_sources(minispd PUBLIC src/DataTaking.cpp src/BmnSiliconDigit.cxx src/QA.
 
 ROOT_GENERATE_DICTIONARY(G__BmnSiliconDigit BmnSiliconDigit.h MODULE minispd)
 
-target_link_libraries(minispd Core RIO Tree Hist)
+target_link_libraries(minispd Core RIO Tree Hist Gpad)
